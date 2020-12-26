@@ -154,5 +154,19 @@ After building `docker-compose.yml` file and run `docker-compose up --build`.
 
 Now we create .travis-ci file and test app before uploading to docker hub
 
+`travis config code`
+
+lets git instatiate `git init` and create a repo for the project
+and commit changes 
+[source,bash]
+----
+git add .
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin git@github.com:AminAbdisamad/news_app.git
+git push -u origin main
+----
+
 
 
