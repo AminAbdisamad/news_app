@@ -191,3 +191,14 @@ docker run -d \
 ----
 
 
+Having issues with *watchtower*, so I'm trying alternatives and ourobros looks promising 
+
+[source,bash]
+----
+docker pull pyouroboros/ouroboros
+docker run -d --name ouroboros \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  pyouroboros/ouroboros
+----
+
+
