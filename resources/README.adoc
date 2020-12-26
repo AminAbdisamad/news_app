@@ -170,6 +170,17 @@ git push -u origin main
 
 when we successfully push our containers to docker hub we need to find a way to pull every time there's an update to hadle this we are using watchtower <watch-tower-description>
 
-`sudo docker pull containrrr/watchtower`
+so first we pull our images into the server by logging to the server
+
+[source,bash]
+----
+sudo docker pull containrrr/watchtower
+sudo docker pull aminux/news_app
+sudo docker pull aminux/news_app_nginx
+----
+
+
+
+7887477e889b6f5a1e98eafe771ae054e289dc3bcc99b90d1af44ee585faa913
 
 
