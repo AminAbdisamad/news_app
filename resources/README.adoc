@@ -177,10 +177,17 @@ so first we pull our images into the server by logging to the server
 sudo docker pull containrrr/watchtower
 sudo docker pull aminux/news_app
 sudo docker pull aminux/news_app_nginx
+
+// RUN ALL
+sudo docker run -d -p aminux/news_app
+sudo docker run -d -p aminux/news_app_nginx
+
+// RUN Watchtower
+
+docker run -d \
+  --name watchtower \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  containrrr/watchtower
 ----
-
-
-
-7887477e889b6f5a1e98eafe771ae054e289dc3bcc99b90d1af44ee585faa913
 
 
