@@ -168,5 +168,8 @@ git remote add origin git@github.com:AminAbdisamad/news_app.git
 git push -u origin main
 ----
 
+when we successfully push our containers to docker hub we need to find a way to pull every time there's an update to hadle this we are using watchtower <watch-tower-description>
+
+`sudo docker pull containrrr/watchtower`
 
 
