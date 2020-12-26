@@ -1,0 +1,36 @@
+version: '3'
+services:
+  nginx-dev:
+    restart: always
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./nginx
+    ports:
+      - "80:80"
+  webserver:
+    build:
+      dockerfile: Dockerfile.dev
+      context: .
+    volumes:
+      # - /app/node_modules # leave this folder
+      - ./:/app # take everything from server directory and put to app
+    # environment:
+    #   - REDIS_HOST=redis
+    #   - REDIS_PORT=6379
+      
+    ports:
+      - "2020:5000"
+  # client:
+  #   build:
+  #     dockerfile: Dockerfile.dev
+  #     context: ./client
+  #   volumes:
+  #     - /app/node_modules
+  #     - ./client:/app
+  # worker:
+  #   build:
+  #     dockerfile: Dockerfile.dev
+  #     context: ./worker
+  #   volumes:
+  #     - /app/node_modules
+  #     - ./worker:/app
