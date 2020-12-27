@@ -21,8 +21,8 @@ after_success:
   # We need to login to docker CLI - we add username and password 
   # to travis as an environment variable under the project
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin # take password as an input to the next command 
-  - docker push aminux/news_app
-  - docker push aminux/news_app_nginx
+  - docker push aminux/dhambal_webserver
+  - docker push aminux/dhambal_nginx
 
 
 
