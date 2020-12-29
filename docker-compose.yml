@@ -6,7 +6,16 @@ services:
       dockerfile: Dockerfile.dev
       context: ./nginx
     ports:
-      - "80:80"
+      - "8080:80"
+  postgres:
+    image: 'postgres:latest'
+    environment:
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
+      - POSTGRES_DATABASE
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
   webserver:
     build:
       dockerfile: Dockerfile.dev
@@ -20,6 +29,8 @@ services:
       
     ports:
       - "2020:5000"
+    depends_on:
+      - postgres
   # client:
   #   build:
   #     dockerfile: Dockerfile.dev
@@ -34,3 +45,6 @@ services:
   #   volumes:
   #     - /app/node_modules
   #     - ./worker:/app
+
+volumes:
+  postgres_data:

@@ -1,21 +1,29 @@
 sudo: required
 services:
   - docker
+
+# We want to rebuild and test when we made changes to the production branch
+branches:
+  only:
+  - production
   
 before_install:
     # docker build -tag <name-of-the-image> -f<file> <build context>
-  - docker build -t aminux/news_app -f ./Dockerfile.dev .
+  - docker build -t aminux/summarizer-app -f ./Dockerfile.dev .
 
 script:
-  - docker run -e CI=true aminux/news_app python test_app.py
+  - docker run -e CI=true aminux/summarizer-app python test_app.py
+  
   
 
 after_success:
-  - docker build -t aminux/news_app .
-  - docker build -t aminux/news_app_nginx ./nginx
+  - docker build -t aminux/summarizer-app .
+  - docker build -t aminux/summarizer-nginx ./nginx
   # We need to login to docker CLI - we add username and password 
   # to travis as an environment variable under the project
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin # take password as an input to the next command 
-  - docker push aminux/news_app
-  - docker push aminux/news_app_nginx
+  - docker push aminux/summarizer-app
+  - docker push aminux/summarizer-nginx
+
+
 

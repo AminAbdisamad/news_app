@@ -170,6 +170,130 @@ git push -u origin main
 
 when we successfully push our containers to docker hub we need to find a way to pull every time there's an update to hadle this we are using watchtower <watch-tower-description>
 
-`sudo docker pull containrrr/watchtower`
+so first we pull our images into the server by logging to the server
+
+[source,bash]
+----
+sudo docker pull containrrr/watchtower
+sudo docker pull aminux/news_app
+sudo docker pull aminux/news_app_nginx
+
+// RUN ALL
+sudo docker run -d -p aminux/news_app
+sudo docker run -d -p aminux/news_app_nginx
+
+// RUN Watchtower
+
+docker run -d \
+  --name watchtower \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  containrrr/watchtower
+----
 
 
+Having issues with *watchtower*, so I'm trying alternatives and ourobros looks promising 
+
+[source,bash]
+----
+docker pull pyouroboros/ouroboros
+docker run -d --name ouroboros \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  pyouroboros/ouroboros
+----
+
+=== Next Steps 
+
+- Secure the nginx with letsencrypt
+- Develop the app more by adding environment | Production and development
+- Upgrade from http1 to http2 or 3
+- Don't allow :5000 to be open for public visitors
+- add docker run commands to a services that automatically runs when the server restarts
+
+=== Creating a new linux service 
+for our server to restart and services we need to create a new service 
+
+Lets create service for *news_app*
+open your editor and write bellow code
+`sudo nano  /etc/systemd/system/news_app.service`
+[source,bash]
+----
+[Unit]
+Description=News App
+After=docker.service
+Requires=docker.service
+
+[Service]
+TimeoutStartSec=0
+Restart=always
+ExecStartPre=-/usr/bin/docker stop %n
+ExecStartPre=-/usr/bin/docker rm %n
+ExecStartPre=/usr/bin/docker pull aminux/news_app
+ExecStart=/usr/bin/docker run -d -p aminux/news_app
+
+[Install]
+WantedBy=multi-user.target
+----
+`sudo nano  /etc/systemd/system/news_app_nginx.service`
+Lets create Another service for *news_app_nginx*
+[source,bash]
+----
+[Unit]
+Description=News App Nginx 
+After=docker.service
+Requires=docker.service
+
+[Service]
+TimeoutStartSec=0
+Restart=always
+ExecStartPre=-/usr/bin/docker stop %n
+ExecStartPre=-/usr/bin/docker rm %n
+ExecStartPre=/usr/bin/docker pull aminux/news_app_nginx
+ExecStart=/usr/bin/docker run -d -p aminux/news_app_nginx
+
+[Install]
+WantedBy=multi-user.target
+----
+
+Lets create service for *Container watcher*
+[source,bash]
+----
+[Unit]
+Description=Container Update Watcher
+After=docker.service
+Requires=docker.service
+
+[Service]
+TimeoutStartSec=0
+Restart=always
+ExecStartPre=-/usr/bin/docker stop %n
+ExecStartPre=-/usr/bin/docker rm %n
+ExecStartPre=/usr/bin/docker pull pyouroboros/ouroboros
+ExecStart=/usr/bin/docker run -d --name ouroboros \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  pyouroboros/ouroboros
+
+[Install]
+WantedBy=multi-user.target
+----
+after these changes reload `systemctl` with `sudo systemctl daemon-reload` this reloads changes you've made with your service files.
+Now, you can start services created.
+
+[source,bash]
+----
+systemctl start news_app
+systemctl start news_app_nginx
+systemctl start container_watcher
+----
+
+[source,bash]
+----
+docker run --name ballan -e POSTGRES_PASSWORD=Aminux@11 -d postgres
+----
+
+
+==== Common errors when setting application architecture
+ModuleNotFoundError: No module named 'site.routes'; 'site' is not a package
+
+You can check that the volume was created as well by running:
+
+`$ docker volume inspect flask-on-docker_postgres_data`

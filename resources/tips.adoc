@@ -1,0 +1,39 @@
+
+== Create Images
+
+
+----
+docker build -t aminux/news_app .
+docker build -t aminux/news_app_nginx ./nginx
+----
+
+==  Push Images to docker hub
+
+[source,bash]
+----
+docker push aminux/news_app
+docker push aminux/news_app_nginx
+----
+TIP: create bash file `deploy.sh` and put all the above code and execute
+to make it executable run 
+`chmod +x deploy.sh` and run  `./deploy.sh`
+
+
+After you deploy your project to docker hub 
+ssh to the server and pull images from docker hub
+docker pull aminux/news_app
+docker pull aminux/news_app_nginx
+
+and finally run 
+docker-compose up -d
+
+To automate pulling images from the server, in your server run 
+`sudo docker pull containrrr/watchtower` and then start 
+
+[source,bash]
+----
+docker run -d \
+  --name watchtower \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  containrrr/watchtower
+----
