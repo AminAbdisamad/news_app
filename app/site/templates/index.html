@@ -6,8 +6,14 @@
     <title>Webserver</title>
 </head>
 <body>
+    {% for post in posts %}
+    <h4>{{ post.title }}</h4>
+    {{ post.description }}
+    {{ post.source }}
+    {{post.created_at}}
+
+    {%endfor%}
     <h1>Hi, there welcome to the webserver</h1>
-    <p>its live yes I mean that:)</p>
-    <p>Watchtover failed to using alternative version</p>
+    <h2>I was being updated and I'm fine</h2>
 </body>
 </html>

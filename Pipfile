@@ -5,6 +5,10 @@ name = "pypi"
 
 [packages]
 flask = "*"
+flask-sqlalchemy = "*"
+gunicorn = "*"
+mypy = "*"
+python-dotenv = "*"
 
 [dev-packages]
 

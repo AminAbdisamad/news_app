@@ -285,6 +285,15 @@ systemctl start news_app_nginx
 systemctl start container_watcher
 ----
 
+[source,bash]
+----
+docker run --name ballan -e POSTGRES_PASSWORD=Aminux@11 -d postgres
+----
 
 
+==== Common errors when setting application architecture
+ModuleNotFoundError: No module named 'site.routes'; 'site' is not a package
 
+You can check that the volume was created as well by running:
+
+`$ docker volume inspect flask-on-docker_postgres_data`

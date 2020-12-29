@@ -1,0 +1,159 @@
+=== Flask Sheet
+
+=== Barebones App
+
+[source,python]
+----
+from flask import Flask
+app = Flask(__name__)
+@app.route('/hello')
+def hello():
+ return 'Hello, World!'
+if __name__ == '__main__':
+ app.run(debug=True)
+----
+
+=== Routing
+
+[source,python]
+----
+@app.route('/hello/<string:name>') # example.com/hello/Anthony
+def hello(name):
+ return 'Hello ' + name + '!' # returns hello Anthony!
+----
+
+=== Allowed Request Methods
+
+[source,python]
+----
+@app.route('/test') #default. only allows GET requests
+@app.route('/test', methods=['GET', 'POST']) #allows only GET and POST.
+@app.route('/test', methods=['PUT']) #allows only PUT
+
+----
+
+=== Configuration
+
+[source,python]
+----
+#direct access to config
+app.config['CONFIG_NAME'] = 'config value'
+#import from an exported environment variable with a path to a config file
+app.config.from_envvar('ENV_VAR_NAME')
+----
+
+=== Templates
+
+[source,python]
+----
+from flask import render_template
+@app.route('/')
+def index():
+ return render_template('template_file.html', var1=value1, ...)
+----
+
+
+=== JSON Responses
+
+[source,python]
+----
+import jsonify
+@app.route('/returnstuff')
+def returnstuff():
+ num_list = [1,2,3,4,5]
+ num_dict = {'numbers' : num_list, 'name' : 'Numbers'}
+ #returns {'output' : {'numbers' : [1,2,3,4,5], 'name' : 'Numbers'}}
+ return jsonify({'output' : num_dict})
+----
+
+
+=== Access Request Data
+
+[source,python]
+----
+request.args['name'] #query string arguments
+request.form['name'] #form data
+request.method #request type
+request.cookies.get('cookie_name') #cookies
+request.files['name'] #files
+----
+
+
+=== Redirect
+
+[source,python]
+----
+from flask import url_for, redirect
+@app.route('/home')
+def home():
+ return render_template('home.html')
+@app.route('/redirect')
+def redirect_example():
+ return redirect(url_for('index')) #sends user to /home
+----
+
+=== Abort
+
+[source,python]
+----
+from flask import abort()
+@app.route('/')
+def index():
+ abort(404) #returns 404 error
+ render_template('index.html') #this never gets executed
+----
+
+=== Set Cookie
+
+[source,python]
+----
+from flask import make_response
+@app.route('/')
+def index():
+ resp = make_response(render_template('index.html'))
+ resp.set_cookie('cookie_name', 'cookie_value')
+ return resp
+
+----
+
+=== Session Handling
+[source,python]
+----
+import session
+app.config['SECRET_KEY'] = 'any random string' #must be set to use sessions
+----
+
+=== set session
+
+[source,python]
+----
+@app.route('/login_success')
+def login_success():
+ session['key_name'] = 'key_value' #stores a secure cookie in browser
+ return redirect(url_for('index'))
+
+----
+
+=== read session
+[source,python]
+----
+@app.route('/')
+def index():
+ if 'key_name' in session: #session exists and has key
+ session_var = session['key_value']
+ else: #session does not exist
+----
+
+
+=== Useful Plugins
+Flask-PyMongo - http://readthedocs.org/docs/flask-pymongo/
+Flask-SQLAlchemy - http://pypi.python.org/pypi/Flask-SQLAlchemy
+Flask-WTF - http://pythonhosted.org/Flask-WTF/
+Flask-Mail - http://pythonhosted.org/Flask-Mail/
+FLask-RESTFul - https://flask-restful.readthedocs.org/
+Flask-Uploads - https://flask-uploads.readthedocs.org/en/latest/
+Flask-User - http://pythonhosted.org/Flask-User/
+FLask-Login - http://pythonhosted.org/Flask-Login/
+#Useful Links
+Flask Website - http://flask.pocoo.org
+
