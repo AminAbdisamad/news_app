@@ -7,10 +7,10 @@ name = "pypi"
 flask = "*"
 flask-sqlalchemy = "*"
 gunicorn = "*"
-mypy = "*"
 python-dotenv = "*"
 
 [dev-packages]
+mypy = "*"
 
 [requires]
 python_version = "3.9"
