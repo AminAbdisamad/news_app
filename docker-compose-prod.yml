@@ -7,7 +7,7 @@ services:
       - "80:80"
   container_watch:
     image: pyouroboros/ouroboros
-    command: docker run -d --name ouroboros -v /var/run/docker.sock:/var/run/docker.sock pyouroboros/ouroboros
+    command: ["./docker_watcher.sh"]
 
   postgres:
     image: 'postgres:latest'
