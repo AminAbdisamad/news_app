@@ -1,7 +1,7 @@
 version: '3'
 services:
   nginx:
-    image: 'aminux/dhambal_nginx'
+    image: 'aminux/summarizer-nginx'
     restart: always
     ports:
       - "80:80"
@@ -21,7 +21,7 @@ services:
     - ./.env.prod
 
   webserver:
-    image: 'aminux/dhambal_webserver'
+    image: 'aminux/summarizer-app'
     restart: always
     volumes:
       # - /app/node_modules # leave this folder

@@ -5,4 +5,5 @@ RUN pip3 install pipenv
 RUN pipenv install
 COPY . .
 # CMD ["pipenv","run","python","app.py"]
-CMD ["gunicorn" "-w","2" , "-b", "0.0.0.0:8080", "run:app"]
+CMD ["./startup.sh"]
+
