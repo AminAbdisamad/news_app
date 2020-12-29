@@ -1,5 +1,6 @@
 from app import db,app
-from app.site.models import Post
+from app.models.post import Post
+from app.models.category import Category
 from flask.cli import FlaskGroup
 
 
@@ -13,8 +14,11 @@ def create_db():
 
 @cli.command("seed_db")
 def seed_db():
-    post = Post(title="Hello World",description="testing from flask CLI",source="Asal")
+    post = Post(title="About news",description="news are good",source="asal")
     post.save()
+    category = Category(name="News",description="All Posts related to news")
+    category.save()
+    
 
 
 

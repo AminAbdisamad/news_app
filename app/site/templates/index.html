@@ -11,10 +11,14 @@
     {{ post.description }}
     {{ post.source }}
     {{post.created_at}}
-
     {%endfor%}
     <h1>Hi, there welcome to the webserver</h1>
     <h2>I was being updated and I'm fine</h2>
     <h2>I was being Changed!!!!!!!</h2>
+    {% for category in categories %}
+    <h4>{{ category.name }}</h4>
+    {{ category.description }}
+    {{post.created_at}}
+    {%endfor%}
 </body>
 </html>

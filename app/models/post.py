@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 from datetime import datetime
 from app import db
+from app.models.category import posts_by_category
 
 # @dataclass
 # class Base(db.Model):
@@ -17,6 +18,7 @@ from app import db
 #         db.session.delete()
 
 
+
 @dataclass
 class Post(db.Model):
     __tablename__ = "post"
@@ -26,6 +28,8 @@ class Post(db.Model):
     source:str = db.Column(db.String(129),nullable=True)
     created_at: datetime= db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     modified_at: datetime = db.Column(db.DateTime, nullable=False, default=datetime.utcnow,onupdate=datetime.utcnow)
+    categories = db.relationship('Category',secondary=posts_by_category)
+    
 
     def save(self) ->None:
         db.session.add(self)

@@ -1,6 +1,6 @@
 from flask import Flask,render_template
-
 from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
 from app import config
 # from werkzeug import generate_password_hash,check_password_hash
 app = Flask(__name__)
@@ -22,6 +22,7 @@ else:
 # export FLASK_ENV=production
 
 db = SQLAlchemy(app)
+migrate = Migrate(app,db)
 
 #  Errors
 @app.errorhandler(404)
