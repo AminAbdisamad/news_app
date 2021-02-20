@@ -50,11 +50,15 @@ migrate = Migrate(app, db)
 # Register Blueprints
 from app.dashboard.routes import dashboard
 from app.site.routes import site
-from app.auth.routes import auth
-from app.forms.routes import forms
+# from app.auth.routes import auth
+
+
+@app.before_first_request
+def create_db():
+    # db.drop_all()
+    db.create_all()
 
 
 app.register_blueprint(dashboard)
 app.register_blueprint(site)
-app.register_blueprint(auth)
-app.register_blueprint(forms)
+# app.register_blueprint(auth)

@@ -1,0 +1,66 @@
+{% extends 'layout/base.html'%}
+
+{% block content%}
+<h1>Create User</h1>
+<!-- FORM -->
+<form method="POST" class="box">
+    <!-- TITLE -->
+        <div class="field">
+          <label class="label">Title</label>
+          <div class="control">
+            <input class="input" type="text" name="title" placeholder="Post Title">
+          </div>
+        </div>
+    <!-- DESCRIPTION -->
+        <div class="field">
+        {{form.description.label(class="label")}}
+            <div class="control">
+                <textarea class="textarea" placeholder="Description here"></textarea>
+            </div>
+        </div>
+   <!-- CATEGORIES -->
+    <div class="field"> 
+        <label class="label">Category</label>
+        <div class="control">
+            <div class="select">
+                <select>
+                {%if categories%}
+                {%for category in categories %}
+                  <option value="{{category.name}}">{{category.name}}</option>
+                {%endfor%}
+                {%endif%}
+                </select>
+              </div>
+        </div>
+    </div> 
+    <!-- SOURCE -->
+        <div class="field">
+          <label class="label">Source</label>
+          <div class="control">
+            <input class="input" type="text" name = "source" placeholder="Source"/>
+        </div>
+        </div>
+      
+        <button class="button is-primary">Create</button>
+    </form>
+   
+ 
+
+
+    <!-- JS -->
+    <script>
+        var wordLen = 255; // Maximum word length
+         function checkWordLen(obj){
+          var len = obj.value.split(/[\s]+/);
+           if(len.length > wordLen){
+               alert("You cannot put more than "+wordLen+" words in this text area.");
+               obj.oldValue = obj.value!=obj.oldValue?obj.value:obj.oldValue;
+               obj.value = obj.oldValue?obj.oldValue:"";
+               return false;
+           }
+         return true;
+       }
+    </script>
+{% endblock content %}
+
+

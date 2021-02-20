@@ -13,6 +13,7 @@ flask-admin = "*"
 flask-security = "*"
 email-validator = "*"
 bcrypt = "*"
+flask-wtf = "*"
 
 [dev-packages]
 mypy = "*"

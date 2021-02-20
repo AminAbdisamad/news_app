@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template
-from app.models.post import Post
-from app.models.category import Category
+from app.dashboard.models.post import Post
+from app.dashboard.models.category import Category
 
 
 site = Blueprint('site', __name__, template_folder="templates",
@@ -15,7 +15,7 @@ def index() -> str:
     # posts_by_category = Post.query.filter(
     #     Post.categories.name == Category.name)
     for post in posts:
-        print(post.categories)
+        print(post.category)
         # posts_by_category = Post.query.filter(
         #     post.categories == Category.name)
         # print(posts_by_category)

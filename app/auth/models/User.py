@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 from datetime import datetime
+from enum import unique
 from flask_security import Security, SQLAlchemyUserDatastore, \
     UserMixin, RoleMixin, login_required
 from app import db
@@ -44,13 +45,14 @@ from app import db
 #         db.session.commit()
 
 
-roles_users = db.Table('roles_users',
-                       db.Column('user_id', db.Integer(),
-                                 db.ForeignKey('user.id')),
-                       db.Column('role_id', db.Integer(), db.ForeignKey('role.id')))
+# roles_users = db.Table('roles_users',
+#                        db.Column('user_id', db.Integer(),
+#                                  db.ForeignKey('user.id')),
+#                        db.Column('role_id', db.Integer(), db.ForeignKey('role.id')))
 
 
 class Role(db.Model, RoleMixin):
+    __tablename__ = "roles"
     id = db.Column(db.Integer(), primary_key=True)
     name = db.Column(db.String(80), unique=True)
     description = db.Column(db.Text)
@@ -65,13 +67,14 @@ class Role(db.Model, RoleMixin):
 
 
 class User(db.Model, UserMixin):
+    __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(255), unique=True)
+    username = db.Column(db.String(80), unique=True)
+    name = db.Column(db.String(120), nullable=True)
     password = db.Column(db.String(255))
     active = db.Column(db.Boolean(), default=False)
     confirmed_at = db.Column(db.DateTime())
-    roles = db.relationship('Role', secondary=roles_users,
-                            backref=db.backref('users', lazy='dynamic'))
 
     def save(self) -> None:
         db.session.add(self)
@@ -79,4 +82,7 @@ class User(db.Model, UserMixin):
 
     def delete(self) -> None:
         db.session.delete(self)
+        db.session.commit()
+
+    def update(self):
         db.session.commit()

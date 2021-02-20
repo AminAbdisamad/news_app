@@ -2,15 +2,15 @@ from flask import Blueprint, render_template, request, flash, url_for
 from flask_security import Security, SQLAlchemyUserDatastore, login_required
 from werkzeug.utils import redirect
 from flask_security.utils import hash_password
-from app.auth.models import User, Role
+from app.auth.models.User import User, Role
 from app import db, app
 # Blue print for Auth
 auth = Blueprint("auth", __name__, url_prefix="/auth",
                  template_folder="templates")
 
 # Flask security setup
-user_datastore = SQLAlchemyUserDatastore(db, User, Role)
-security = Security(app, user_datastore)
+# user_datastore = SQLAlchemyUserDatastore(db, User, Role)
+# security = Security(app, user_datastore)
 
 # Create a user to test with
 
@@ -30,8 +30,8 @@ def login():
         password = request.form.get('password')
         print(email, password)
         # if email exist and password login
-        email = User.query.filter_by(email=email).first()
-        password = User.query.filter_by(password=password).first()
+        # email = User.query.filter_by(email=email).first()
+        # password = User.query.filter_by(password=password).first()
         if email and password:
             redirect("/admin")
             flash("Logged in successfully")
@@ -47,9 +47,9 @@ def register():
         email = request.form.get('email')
         password = request.form.get('password')
         if email and password:
-            user = User(email=email, password=hash_password(password))
+            # user = User(email=email, password=hash_password(password))
             print(email, password)
-            user.save()
+            # user.save()
             flash("User saved successfully")
             redirect(url_for('auth.login'))
     return render_template("register.html")
