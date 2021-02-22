@@ -1,0 +1,31 @@
+{%extends 'base.html'%}
+{%block content%}
+
+<div class="columns">
+    <!-- Include left sidebar -->
+    {% include 'login_side.html' %}
+    <div class="column">
+        <div class="login-side-right">
+        <h1>Login</h1>
+        <form class="boxss">
+            <div class="field">
+              <label class="label">Email</label>
+              <div class="control">
+                <input class="input" type="email" placeholder="e.g. geedi@example.com">
+              </div>
+            </div>
+          
+            <div class="field">
+              <label class="label">Password</label>
+              <div class="control">
+                <input class="input" type="password" placeholder="********">
+              </div>
+            </div>
+          
+            <button class="button is-primary">Sign in</button>
+        </form>
+    </div>
+  </div>
+</div>
+
+{%endblock content%}

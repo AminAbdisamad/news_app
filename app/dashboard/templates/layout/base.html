@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% block head %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+ <link
+    rel="stylesheet"
+    href="{{url_for('site.static',filename='css/main.css')}}"/> 
+    <!-- <link rel="stylesheet" href="site/static/main.css"> -->
+    <title>News App  - {% block title %} {% endblock %}</title>
+    {% endblock %}
+</head>
+<body>
+    <!-- Header -->
+    {% block header %}
+         {% include "layout/header.html" %}
+    {% endblock %}
+   
+    <div class="columns">
+        <div class="column is-one-quarter dashboard-side" id="hide-sidebar">
+                    <!-- SIDEBAR SECTION -->
+                    <div class="container">
+                        {%include 'layout/side.html'%}
+                    </div>
+                </div>
+             
+                <!-- CONTENT SECTION  STARTS HERE -->
+                <div class="column dashboard-content">
+                    {%with messages = get_flashed_messages(with_categories=true) %}
+                    {%if messages%}
+                    {%for category, message in messages%}
+                        <article class="message {{category}}">
+                            <div class="message-body">
+                            {{message}}
+                            </div>
+                        </article>
+                    {%endfor%}
+                    {%endif%}
+                    {%endwith%}
+                {% block content %}
+                        <!-- Content will be displayed here -->
+                {% endblock content%}
+                </div>
+         </div>
+{# ALL SCRIPTS SHOULD GO HERE #}
+{% block script %}
+    
+{% endblock %}  
+  <!-- Footer -->
+  {% block footer %}
+      {% include "footer.html" %}
+  {% endblock %}
+  
+  <script>
+      const sidebarBurger = document.querySelector("#sidebar-hide")
+      const sideMenu = document.querySelector("#hide-sidebar")
+      sidebarBurger.addEventListener('click',()=>{
+          console.log("You clicked me")
+        if (sideMenu.style.display === 'none'){
+            sideMenu.style.display = 'block';
+        }
+        else{
+            //sideMenu.style.transition = "all 22s"
+            sideMenu.style.display = 'none';
+        }
+      })
+
+  </script>
+</div>
+</body>
+</html>

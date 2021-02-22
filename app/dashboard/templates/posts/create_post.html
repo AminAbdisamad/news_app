@@ -1,0 +1,79 @@
+{% extends 'layout/base.html'%} {% block content%} {% from "macro.html" import
+section_heading with context%} {{section_heading(title="Create
+Post",link="dashboard.posts",btn_text="Back")}}
+<!-- FORM -->
+<form method="POST" class="box">
+  <!-- Prevent CRSF Attacks -->
+  {{ form.csrf_token }}
+  <!-- TITLE -->
+  <div class="field">
+    {{form.title.label(class="label")}}
+    <!-- <label class="label">Title</label> -->
+    <!-- CHECK IF THERES ERRORS -->
+    {%if form.title.errors%} {%for error in form.title.errors %}
+    {{form.title(class="input is-danger")}}
+    <div class="has-text-weight-light has-text-danger">{{error}}</div>
+    {%endfor%} {%else%}
+    <div class="control">{{form.title(class="input")}}</div>
+    {%endif%}
+  </div>
+  <!-- DESCRIPTION -->
+  <div class="field">
+    {{form.description.label(class="label")}} {%if form.description.errors%}
+    {%for error in form.description.errors %}
+    <div class="control">
+      {{form.description(class="textarea is-danger")}}
+      <div class="has-text-weight-light has-text-danger">{{error}}</div>
+    </div>
+    {%endfor%} {%else%}
+    <div class="control">{{form.description(class="textarea")}}</div>
+    {%endif%}
+  </div>
+  <!-- CATEGORIES -->
+  <div class="field">
+    {{form.category.label(class="label")}}
+    <div class="control">
+      <div class="select">{{form.category}}</div>
+      <!-- <div class="select">
+            <select>
+              <option value="{{form.category}}">{{form.category}}</option>
+            <option value="Business">Business</option> 
+           
+            </select>
+        </div> -->
+    </div>
+  </div>
+
+  <!-- SOURCE -->
+  <div class="field">
+    {{form.source.label(class="label")}} {%if form.source.errors%} {%for error
+    in form.source.errors %}
+    <div class="control">
+      {{form.source(class="input is-danger")}}
+      <div class="has-text-weight-light has-text-danger">{{error}}</div>
+    </div>
+    {%endfor%} {%else%}
+    <div class="control">{{form.source(class="input")}}</div>
+    {%endif%}
+  </div>
+  {# USING MACRO FOR INPUT #} {% from "macro.html" import form_input %}
+  {{form.submit(class="button is-primary")}}
+</form>
+
+<!-- JS -->
+<script>
+  var wordLen = 255; // Maximum word length
+  function checkWordLen(obj) {
+    var len = obj.value.split(/[\s]+/);
+    if (len.length > wordLen) {
+      alert(
+        'You cannot put more than ' + wordLen + ' words in this text area.'
+      );
+      obj.oldValue = obj.value != obj.oldValue ? obj.value : obj.oldValue;
+      obj.value = obj.oldValue ? obj.oldValue : '';
+      return false;
+    }
+    return true;
+  }
+</script>
+{% endblock content %}

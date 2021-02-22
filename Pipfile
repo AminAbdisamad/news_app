@@ -8,9 +8,16 @@ flask = "*"
 flask-sqlalchemy = "*"
 gunicorn = "*"
 python-dotenv = "*"
+flask-migrate = "*"
+flask-admin = "*"
+flask-security = "*"
+email-validator = "*"
+bcrypt = "*"
+flask-wtf = "*"
 
 [dev-packages]
 mypy = "*"
+autopep8 = "*"
 
 [requires]
 python_version = "3.9"

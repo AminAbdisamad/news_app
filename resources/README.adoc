@@ -26,7 +26,7 @@ app:Any = Flask(__name__)
 
 @app.route('/')
 def index():
-    return render_template("index.html") 
+    return render_template("index.html")
 
 
 if __name__ == '__main__':
@@ -77,12 +77,12 @@ CMD ["pipenv","run","python","app.py"]
 
 *! run your docker diamond/client
 
-run docker build 
+run docker build
 
 [source,bash]
 ----
 docker build -t aminux/python_webserver .
-docker run -p 8080:5000 aminux/python_webserver #this allows you access from your local device 
+docker run -p 8080:5000 aminux/python_webserver #this allows you access from your local device
 ----
 
 let's create our nginx config file
@@ -93,7 +93,7 @@ mkdir nginx
 cd nginx && touch default.conf
 ----
 
-Inside `default.conf` we add the following code 
+Inside `default.conf` we add the following code
 
 [source,config]
 ----
@@ -102,14 +102,14 @@ upstream webserver {
 }
 # upstream api {
 #     server api:5000;
-# }   
+# }
 
 server {
     listen 80;
     location / {
         proxy_pass http://webserver;
     }
-# Websocket connection for react 
+# Websocket connection for react
     # location /sockjs-node {
     #     proxy_pass http://client;
     #     proxy_http_version 1.1;
@@ -143,8 +143,8 @@ services:
       dockerfile: Dockerfile.dev
       context: .
     volumes:
-      - ./:/app # take everything from server directory and put 
-      
+      - ./:/app # take everything from server directory and put
+
     ports:
       - "2020:5000"
 ----
@@ -157,7 +157,7 @@ Now we create .travis-ci file and test app before uploading to docker hub
 `travis config code`
 
 lets git instatiate `git init` and create a repo for the project
-and commit changes 
+and commit changes
 [source,bash]
 ----
 git add .
@@ -191,7 +191,7 @@ docker run -d \
 ----
 
 
-Having issues with *watchtower*, so I'm trying alternatives and ourobros looks promising 
+Having issues with *watchtower*, so I'm trying alternatives and ourobros looks promising
 
 [source,bash]
 ----
@@ -201,7 +201,7 @@ docker run -d --name ouroboros \
   pyouroboros/ouroboros
 ----
 
-=== Next Steps 
+=== Next Steps
 
 - Secure the nginx with letsencrypt
 - Develop the app more by adding environment | Production and development
@@ -209,8 +209,8 @@ docker run -d --name ouroboros \
 - Don't allow :5000 to be open for public visitors
 - add docker run commands to a services that automatically runs when the server restarts
 
-=== Creating a new linux service 
-for our server to restart and services we need to create a new service 
+=== Creating a new linux service
+for our server to restart and services we need to create a new service
 
 Lets create service for *news_app*
 open your editor and write bellow code
@@ -238,7 +238,7 @@ Lets create Another service for *news_app_nginx*
 [source,bash]
 ----
 [Unit]
-Description=News App Nginx 
+Description=News App Nginx
 After=docker.service
 Requires=docker.service
 
@@ -297,3 +297,17 @@ ModuleNotFoundError: No module named 'site.routes'; 'site' is not a package
 You can check that the volume was created as well by running:
 
 `$ docker volume inspect flask-on-docker_postgres_data`
+
+Flask-security extension needs email-validator
+
+==== Kubernates
+** shines in development and Production **
+- Infrastructure for managing multiple containers
+- Automated scheduling and management of application containers
+- ecosystem for managing cluster of docker c ontainers
+
+=== Docker
+** shines for managing production app**
+- A way to create containers, an isolated environment for applications
+- Automated building and deploying applications - CI
+- Container platform for configuring, building and distributing containers

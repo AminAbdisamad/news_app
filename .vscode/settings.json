@@ -1,4 +1,7 @@
 {
     "python.linting.mypyEnabled": true,
-    "python.linting.enabled": true
+    "python.linting.enabled": true,
+    "material-icon-theme.files.associations": {
+        "emmet.includeLanguages": {"jinja-html": "html"}
+    }
 }

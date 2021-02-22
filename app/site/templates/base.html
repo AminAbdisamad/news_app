@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% block head %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+ <link
+    rel="stylesheet"
+    href="{{url_for('site.static',filename='css/main.css')}}"/> 
+    <!-- <link rel="stylesheet" href="site/static/main.css"> -->
+    <title>{% block title %}{% endblock %} - News App</title>
+    {% endblock %}
+</head>
+<body>
+    <!-- Header -->
+    {% include "header.html" %}
+    <div class="content">
+        {% block content %}
+        <!-- Content will be displayed here -->
+        {% endblock content%}
+    </div>
+  <!-- Footer -->
+  {% include "footer.html" %}
+    </div>
+</body>
+</html>

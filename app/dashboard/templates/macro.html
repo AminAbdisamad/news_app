@@ -1,0 +1,20 @@
+{% macro section_heading(title="Section
+Title",link="dashboard.posts",btn_text="Add") %}
+<div class="section-heading">
+  <h1 class="title is-3 has-text-grey">{{title}}</h1>
+  <a class="button is-primary left" href="{{url_for(link)}}">{{btn_text}}</a>
+</div>
+{% endmacro %} {% macro form_input(input=None,
+label=None,type="input",errors=None) %}
+<div class="field">
+  {{label(class="label")}} {%if errors%} {%for error in errors %}
+  <div class="control">
+    {{input(class=type+" is-danger")}}
+    <div class="has-text-weight-light has-text-danger">{{error}}</div>
+  </div>
+  {%endfor%} {%else%}
+  <div class="control">{{input(class=type)}}</div>
+  {%endif%}
+</div>
+
+{% endmacro %}
