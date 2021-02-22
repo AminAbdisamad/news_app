@@ -10,7 +10,8 @@ class PostForm(FlaskForm):
                         DataRequired(), Length(min=3, max=20)])
     description = TextAreaField("Description", validators=[
                                 DataRequired(), Length(max=1500)])
-    category = SelectField('Category', choices=[Category.name])
+    category = SelectField('Category', choices=[
+                           category.name for category in Category.query.all()])
     source = StringField("Source", validators=[
                          DataRequired(), Length(min=3, max=20)])
     submit = SubmitField("Create")

@@ -1,7 +1,7 @@
 import click
 from app import db, app
 from app.auth.models import User, Role
-from app.models.category import Category
+# from app.models.category import Category
 from flask.cli import FlaskGroup
 
 

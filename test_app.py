@@ -1,11 +1,11 @@
-import unittest
+# import unittest
 
 
-class TestApp(unittest.TestCase):
+# class TestApp(unittest.TestCase):
 
-    def test_add(self):
-        self.assertEqual(sum([2,6]),8,'Should be 8')
+#     def test_add(self):
+#         self.assertEqual(sum([2,6]),8,'Should be 8')
 
 
-if __name__ == '__main__':
-    unittest.main()
+# if __name__ == '__main__':
+#     unittest.main()
