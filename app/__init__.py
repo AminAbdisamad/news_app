@@ -12,6 +12,8 @@ app = Flask(__name__)
 
 # ?Or Read from another class
 # app.config.from_object(DevelopmentConfig)
+
+
 if app.config["ENV"] == 'production':
     app.config.from_object(config.ProductionConfig)
 
@@ -47,18 +49,18 @@ migrate = Migrate(app, db)
 #     return render_template("500.html"), 500
 
 
-# Register Blueprints
-from app.dashboard.routes import dashboard
-from app.site.routes import site
-# from app.auth.routes import auth
-
-
 @app.before_first_request
 def create_db():
     # db.drop_all()
     db.create_all()
 
 
-app.register_blueprint(dashboard)
+# Register Blueprints
+from app.dashboard.dashboard import dashboard_bp
+from app.site.routes import site
+# from app.auth.routes import auth
+
+
+app.register_blueprint(dashboard_bp)
 app.register_blueprint(site)
 # app.register_blueprint(auth)

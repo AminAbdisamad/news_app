@@ -12,11 +12,4 @@ def index() -> str:
     # Get Data from database
     posts = Post.query.all()
     categories = Category.query.all()
-    # posts_by_category = Post.query.filter(
-    #     Post.categories.name == Category.name)
-    for post in posts:
-        print(post.category)
-        # posts_by_category = Post.query.filter(
-        #     post.categories == Category.name)
-        # print(posts_by_category)
     return render_template("site.html", posts=posts, categories=categories)
