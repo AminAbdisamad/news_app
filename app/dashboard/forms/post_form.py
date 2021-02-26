@@ -18,4 +18,4 @@ class PostForm(FlaskForm):
         'Publish?',
         choices=[("yes", 'Yes'), ("no", 'No')], default="yes"
     )
-    submit = SubmitField("Create")
+    submit = SubmitField("Submit")
