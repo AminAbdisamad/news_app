@@ -1,24 +1,7 @@
 <aside class="menu" id="side-menu">
-  <button class="button is-primary">
-    <span class="icon">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        class="ionicon"
-        viewBox="0 0 512 512"
-      >
-        <title>Add</title>
-        <path
-          fill="none"
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="32"
-          d="M256 112v288M400 256H112"
-        />
-      </svg>
-    </span>
-    <span>Create New Post</span>
-  </button>
+  <a class="button is-primary" href="{{url_for('dashboard.create_post')}}">
+    <i class="material-icons">add</i>Create New Post
+  </a>
 
   <p class="menu-label">Dashboard</p>
   <ul class="menu-list">
@@ -29,13 +12,13 @@
   <p class="menu-label">Posts</p>
   <ul class="menu-list">
     <li>
-      <a href="{{url_for('dashboard.posts')}}">Posts</a>
+      <a href="{{url_for('dashboard.get_posts')}}">Posts</a>
     </li>
     <li><a href="{{url_for('dashboard.create_post')}}">Create Post</a></li>
   </ul>
   <p class="menu-label">Categories</p>
   <ul class="menu-list">
-    <li><a href="{{url_for('dashboard.categories')}}">Categories</a></li>
+    <li><a href="{{url_for('dashboard.get_categories')}}">Categories</a></li>
     <li>
       <a href="{{url_for('dashboard.create_category')}}">Create Category</a>
     </li>
@@ -53,7 +36,7 @@
   </ul>
   <p class="menu-label">Users</p>
   <ul class="menu-list">
-    <li><a href="{{url_for('dashboard.users')}}">Users</a></li>
+    <li><a href="{{url_for('dashboard.create_user')}}">Users</a></li>
     <li><a>Transfers</a></li>
     <li><a>Balance</a></li>
   </ul>

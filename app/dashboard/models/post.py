@@ -26,10 +26,11 @@ class Post(db.Model):
     description: str = db.Column(db.Text)
     source: str = db.Column(db.String(129), nullable=True)
     category: str = db.Column(db.String(129), nullable=True)
+    publish: str = db.Column(db.String(50), default="yes")
     created_at: datetime = db.Column(
-        db.DateTime, nullable=False, default=datetime.utcnow)
+        db.DateTime, nullable=False, default=datetime.now())
     modified_at: datetime = db.Column(
-        db.DateTime, nullable=False, default=datetime.utcnow, onupdate=datetime.utcnow)
+        db.DateTime, nullable=False, default=datetime.now(), onupdate=datetime.now())
 
     def save(self) -> None:
         db.session.add(self)
@@ -37,4 +38,7 @@ class Post(db.Model):
 
     def delete(self) -> None:
         db.session.delete(self)
+        db.session.commit()
+
+    def update(self):
         db.session.commit()

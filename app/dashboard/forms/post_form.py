@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, TextAreaField, SelectField, SubmitField
+from wtforms import StringField, TextAreaField, SelectField, SubmitField, RadioField
 from wtforms.validators import Length, DataRequired
 from app.dashboard.models.category import Category
 # from wtforms_sqlalchemy.fields import
@@ -14,4 +14,8 @@ class PostForm(FlaskForm):
                            category.name for category in Category.query.all()])
     source = StringField("Source", validators=[
                          DataRequired(), Length(min=3, max=20)])
+    publish = RadioField(
+        'Publish?',
+        choices=[("yes", 'Yes'), ("no", 'No')], default="yes"
+    )
     submit = SubmitField("Create")

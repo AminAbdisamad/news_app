@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     {% block head %}
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
  <link
     rel="stylesheet"
@@ -29,7 +30,7 @@
                     {%with messages = get_flashed_messages(with_categories=true) %}
                     {%if messages%}
                     {%for category, message in messages%}
-                        <article class="message {{category}}">
+                        <article class="message {{category}}" id="notification">
                             <div class="message-body">
                             {{message}}
                             </div>
@@ -67,5 +68,6 @@
 
   </script>
 </div>
+<script type="module" src="{{url_for('site.static',filename='js/main.js')}}"></script>
 </body>
 </html>
