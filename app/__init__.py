@@ -58,9 +58,9 @@ def create_db():
 # Register Blueprints
 from app.dashboard.dashboard import dashboard_bp
 from app.site.routes import site
-# from app.auth.routes import auth
+from app.auth.auth import auth_bp
 
 
 app.register_blueprint(dashboard_bp)
 app.register_blueprint(site)
-# app.register_blueprint(auth)
+app.register_blueprint(auth_bp)

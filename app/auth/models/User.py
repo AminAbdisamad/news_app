@@ -1,8 +1,5 @@
 from dataclasses import dataclass
 from datetime import datetime
-from enum import unique
-from flask_security import Security, SQLAlchemyUserDatastore, \
-    UserMixin, RoleMixin, login_required
 from app import db
 
 
@@ -51,7 +48,7 @@ from app import db
 #                        db.Column('role_id', db.Integer(), db.ForeignKey('role.id')))
 
 
-class Role(db.Model, RoleMixin):
+class Role(db.Model):
     __tablename__ = "roles"
     id = db.Column(db.Integer(), primary_key=True)
     name = db.Column(db.String(80), unique=True)
@@ -65,8 +62,11 @@ class Role(db.Model, RoleMixin):
         db.session.delete(self)
         db.session.commit()
 
+    def update(self):
+        db.session.commit()
 
-class User(db.Model, UserMixin):
+
+class User(db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(255), unique=True)
