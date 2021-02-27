@@ -73,9 +73,6 @@ def update_post(id):
     return render_template("posts/create_update.html", title="Update Post", form=form)
 
 
-@dashboard_bp.route("/create-user", methods=['POST', 'GET'])
-def create_user():
-    return render_template("users/create_user.html")
 # admin = Admin(app, name="News Summarizer", template_mode="bootstrap4")
 # admin.add_view(ModelView(Category, db.session))
 # admin.add_view(ModelView(Post, db.session))

@@ -1,0 +1,16 @@
+{% extends 'layout/base.html'%} {% block content%}
+{% from 'macro.html' import section_heading with context %}
+{% from 'macro.html' import form_input with context %}
+
+{{section_heading(title=title,link='dashboard.get_users',btn_text="Back")}}
+<!-- FORM -->
+ <form method="POST" class="box">
+        {{ form.csrf_token }}
+        {{form_input(input=form.name,label=form.name.label,type="input",errors=form.name.errors)}}
+        {{form_input(input=form.email,label=form.email.label,type="input",errors=form.email.errors)}}
+        {{form_input(input=form.username,label=form.username.label,type="input",errors=form.username.errors)}}
+        {{form_input(input=form.password,label=form.password.label,type="input",errors=form.password.errors)}}
+        {{form.submit(class="button is-primary")}}
+</form>
+
+{% endblock content %}

@@ -1,0 +1,42 @@
+{% from "macro.html" import section_heading with context %}
+{% extends 'layout/base.html' %} 
+{% block content %} 
+<!-- Title -->
+{{section_heading(title="Users",link="dashboard.create_user",btn_text="Add
+User")}}
+
+<!-- If empty -->
+{%if not users %}
+  <div class="box">
+    <p>No Users yet</p>
+  </div>
+{%else%}
+<table class="table box">
+  <thead>
+    <tr>
+      <th><input type="checkbox" /></th>
+      <th>Name</th>
+      <th>Username</th>
+      <th>Email</th>
+      <th>Date</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for user in users %}
+    <tr>
+      <th><input type="checkbox" /></th>
+      <td><a href="#">{{ user.name }}</a></td>
+       <th>{{ user.username }}</th>
+      <td>{{ user.email }}</td>
+      <td>{{ user.create_at}}</td>
+      <td>
+        <a href="{{url_for('dashboard.delete_user',id=user.id)}}" onclick="confirm('Are you sure?')">Delete</a> |
+        <a href="{{url_for('dashboard.update_user',id=user.id)}}">Edit</a>
+      </td>
+    </tr>
+    {%endfor%}
+  </tbody>
+</table>
+{%endif%}
+{%endblock content%}
