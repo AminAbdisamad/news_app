@@ -2,82 +2,26 @@
   <a class="button is-primary" href="{{url_for('dashboard.create_post')}}">
     <i class="material-icons">add</i>Create New Post
   </a>
-
-  <p class="menu-label">Dashboard</p>
   <ul class="menu-list">
     <li>
       <a href="{{url_for('dashboard.index')}}" class="is-active">Dashboard</a>
     </li>
   </ul>
-  <p class="menu-label">Posts</p>
   <ul class="menu-list">
     <li>
       <a href="{{url_for('dashboard.get_posts')}}">Posts</a>
     </li>
     <li><a href="{{url_for('dashboard.create_post')}}">Create Post</a></li>
   </ul>
-  <p class="menu-label">Categories</p>
   <ul class="menu-list">
     <li><a href="{{url_for('dashboard.get_categories')}}">Categories</a></li>
     <li>
       <a href="{{url_for('dashboard.create_category')}}">Create Category</a>
     </li>
-    <!-- <li>
-        <a >Manage Your Team</a>
-        <ul>
-          <li><a>Members</a></li>
-          <li><a>Plugins</a></li>
-          <li><a>Add a member</a></li>
-        </ul>
-      </li>
-      <li><a>Invitations</a></li>
-      <li><a>Cloud Storage Environment Settings</a></li>
-      <li><a>Authentication</a></li> -->
   </ul>
-  <p class="menu-label">Users</p>
   <ul class="menu-list">
     <li><a href="{{url_for('dashboard.create_user')}}">Users</a></li>
     <li><a>Transfers</a></li>
     <li><a>Balance</a></li>
   </ul>
 </aside>
-<script type="text/javascript">
-  const currentLocation = location.href;
-  const menuItem = document.querySelectorAll('a');
-  const currentItem = document.querySelector('.is-active');
-  const length = menuItem.length;
-  for (let i = 0; i < length; i++) {
-    if (menuItem[i].href === currentLocation) {
-      currentItem.classList.remove('is-active');
-      menuItem[i].classList.add('is-active');
-    }
-  }
-  /*
-  const menuList = document.querySelectorAll(".menu-list").forEach((menu)=>{
-    if(menu){
-      menu.addEventListener('click',(e)=>{
-        e.preventDefault()
-        const current = e.target.classList
-        if(!current.value)
-        //e.target.classList('is-active')
-        current.add("is-active");
-        this.remove("is-active"); 
-        //className.replace("is-active", "")
-        //e.target.classList.add('is-active')
-        //console.log(e.target)
-      })
-    }
-    
-  })
-  */
-  /*const menuList = document.querySelectorAll(".menu-list")
-  for (var i = 0; i < menuList.length; i++) {
-    menuList[i].addEventListener("click", function() {
-    var current = document.getElementsByClassName("is-active");
-    console.log(current)
-    console.log(current[0])
-    current[0].className = current[0].className.replace("is-active", "");
-    this.className += "is-active";
-    });
-  }*/
-</script>

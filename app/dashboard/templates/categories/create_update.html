@@ -1,26 +1,16 @@
 {% extends 'layout/base.html'%} {% block content%}
-<h1>Create Category</h1>
+{% from 'macro.html' import section_heading with context %}
+
+{{section_heading(title=title,link='dashboard.get_categories',btn_text="Back")}}
+{% from 'macro.html' import form_input with context %}
 <!-- FORM -->
 <form method="POST" class="box">
+  {{form.csrf_token()}}
   <!-- TITLE -->
-  <div class="field">
-    <label class="label">Name</label>
-    <div class="control">
-      <input class="input" type="text" name="name" placeholder="Post Title" />
-    </div>
-  </div>
+  {{form_input(input=form.name,label=form.name.label,type="input",errors=form.name.errors)}} 
   <!-- DESCRIPTION -->
-  <div class="field">
-    <label class="label">Description</label>
-    <div class="control">
-      <textarea
-        class="textarea"
-        name="description"
-        placeholder="description here"
-      ></textarea>
-    </div>
-  </div>
-  <button class="button is-primary">Create</button>
+  {{form_input(input=form.description,label=form.description.label,type="textarea",errors=form.description.errors)}}
+  {{form.submit(class="button is-primary")}}
 </form>
 
 {% endblock content %}
