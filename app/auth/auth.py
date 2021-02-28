@@ -78,12 +78,36 @@ def get_users():
 
 @dashboard_bp.route("/users/<int:id>/delete")
 def delete_user(id):
-    pass
+    user = User.query.get_or_404(id)
+    # TODO: Check if the user has permission to delete
+    if user:
+        user.delete()
+        flash(f"{user.name} deleted successfully", "is-success")
+        return redirect(url_for('dashboard.get_users'))
+    return render_template("users/list.html")
 
 
 @dashboard_bp.route("/users/<int:id>/update", methods=["GET", "POST"])
 def update_user(id):
-    pass
+    # Get id of the post to update
+    user = User.query.get_or_404(id)
+    print(user.name)
+    form = RegisterForm()
+    if form.validate_on_submit():
+        user.username = form.username.data
+        user.email = form.email.data
+        user.name = form.name.data
+        user.role = form.role.data
+        user.password = bcrypt.generate_password_hash(form.password.data)
+        user.update()
+        flash("User updated successfully", "is-success")
+        return redirect(url_for('dashboard.get_users'))
+    elif request.method == 'GET':
+        form.name.data = user.name
+        form.email.data = user.email
+        form.username.data = user.username
+        form.role.data = user.role
+    return render_template("users/admin_create_user.html", title="Update User", form=form)
 
 
 @dashboard_bp.route("/roles/")
@@ -100,14 +124,32 @@ def create_roles():
         role.save()
         flash("Role Created", "is-success")
         return redirect(url_for('dashboard.get_roles'))
-    return render_template("users/create_update_role.html", form=form)
+    return render_template("users/create_update_role.html", form=form, title="Add roles")
 
 
 @dashboard_bp.route("/roles/<int:id>/delete")
 def delete_role(id):
-    pass
+    role = Role.query.get_or_404(id)
+    # TODO: Check if the user has permission to delete
+    if role:
+        role.delete()
+        flash(f"{role.name} deleted successfully", "is-success")
+        return redirect(url_for('dashboard.get_roles'))
+    return render_template("users/list.html")
 
 
 @dashboard_bp.route("/roles/<int:id>/update", methods=["GET", "POST"])
 def update_role(id):
-    pass
+    # Get id of the post to update
+    role = Role.query.get_or_404(id)
+    form = RolesForm()
+    if form.validate_on_submit():
+        role.name = form.name.data
+        role.description = form.description.data
+        role.update()
+        flash("Role updated successfully", "is-success")
+        return redirect(url_for('dashboard.get_roles'))
+    elif request.method == 'GET':
+        form.name.data = role.name
+        form.description.data = role.description
+    return render_template("users/create_update_role.html", title="Update Role", form=form)
