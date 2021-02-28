@@ -78,12 +78,36 @@ def get_users():
 
 @dashboard_bp.route("/users/<int:id>/delete")
 def delete_user(id):
-    pass
+    user = User.query.get_or_404(id)
+    # TODO: Check if the user has permission to delete
+    if user:
+        user.delete()
+        flash(f"{user.name} deleted successfully", "is-success")
+        return redirect(url_for('dashboard.get_users'))
+    return render_template("users/list.html")
 
 
 @dashboard_bp.route("/users/<int:id>/update", methods=["GET", "POST"])
 def update_user(id):
-    pass
+    # Get id of the post to update
+    user = User.query.get_or_404(id)
+    print(user.name)
+    form = RegisterForm()
+    if form.validate_on_submit():
+        user.username = form.username.data
+        user.email = form.email.data
+        user.name = form.name.data
+        user.role = form.role.data
+        user.password = bcrypt.generate_password_hash(form.password.data)
+        user.update()
+        flash("User updated successfully", "is-success")
+        return redirect(url_for('dashboard.get_users'))
+    elif request.method == 'GET':
+        form.name.data = user.name
+        form.email.data = user.email
+        form.username.data = user.username
+        form.role.data = user.role
+    return render_template("users/admin_create_user.html", title="Update User", form=form)
 
 
 @dashboard_bp.route("/roles/")

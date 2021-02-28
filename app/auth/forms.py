@@ -19,6 +19,7 @@ class RegisterForm(FlaskForm):
     confirm_password = PasswordField("Confirm Password", validators=[
         DataRequired(), Length(min=5), EqualTo('password', message="Confirm password must be equal to password")], render_kw={
         "placeholder": "*********"})
+    role = StringField("Role", render_kw={"placeholder": "Your Name"})
 
     submit = SubmitField("Create")
 
