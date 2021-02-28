@@ -124,14 +124,32 @@ def create_roles():
         role.save()
         flash("Role Created", "is-success")
         return redirect(url_for('dashboard.get_roles'))
-    return render_template("users/create_update_role.html", form=form)
+    return render_template("users/create_update_role.html", form=form, title="Add roles")
 
 
 @dashboard_bp.route("/roles/<int:id>/delete")
 def delete_role(id):
-    pass
+    role = Role.query.get_or_404(id)
+    # TODO: Check if the user has permission to delete
+    if role:
+        role.delete()
+        flash(f"{role.name} deleted successfully", "is-success")
+        return redirect(url_for('dashboard.get_roles'))
+    return render_template("users/list.html")
 
 
 @dashboard_bp.route("/roles/<int:id>/update", methods=["GET", "POST"])
 def update_role(id):
-    pass
+    # Get id of the post to update
+    role = Role.query.get_or_404(id)
+    form = RolesForm()
+    if form.validate_on_submit():
+        role.name = form.name.data
+        role.description = form.description.data
+        role.update()
+        flash("Role updated successfully", "is-success")
+        return redirect(url_for('dashboard.get_roles'))
+    elif request.method == 'GET':
+        form.name.data = role.name
+        form.description.data = role.description
+    return render_template("users/create_update_role.html", title="Update Role", form=form)
