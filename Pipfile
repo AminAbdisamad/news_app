@@ -11,8 +11,9 @@ python-dotenv = "*"
 flask-migrate = "*"
 flask-admin = "*"
 email-validator = "*"
-bcrypt = "*"
 flask-wtf = "*"
+flask-bcrypt = "*"
+flask-login = "*"
 
 [dev-packages]
 mypy = "*"

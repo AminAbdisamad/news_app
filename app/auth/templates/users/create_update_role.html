@@ -1,0 +1,15 @@
+{% extends 'layout/base.html'%} {% block content%}
+{% from 'macro.html' import section_heading with context %}
+{% from 'macro.html' import form_input with context %}
+
+{{section_heading(title=title,link='dashboard.get_roles',btn_text="Back")}}
+<!-- FORM -->
+<form method="POST" class="box">
+  {{form.csrf_token()}}
+  <!-- TITLE -->
+  {{form_input(input=form.name,label=form.name.label,type="input",errors=form.name.errors)}} 
+  <!-- DESCRIPTION -->
+  {{form_input(input=form.description,label=form.description.label,type="textarea",errors=form.description.errors)}}
+  {{form.submit(class="button is-primary")}}
+</form>
+{% endblock content %}

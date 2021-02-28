@@ -1,0 +1,38 @@
+{% from "macro.html" import section_heading with context %}
+{% extends 'layout/base.html' %} 
+{% block content %} 
+<!-- Title -->
+{{section_heading(title="Roles",link="dashboard.create_roles",btn_text="Add
+Role")}}
+
+<!-- If empty -->
+{%if not roles %}
+  <div class="box">
+    <p>No Roles Added yet</p>
+  </div>
+{%else%}
+<table class="table box">
+  <thead>
+    <tr>
+      <th><input type="checkbox" /></th>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for role in roles %}
+    <tr>
+      <th><input type="checkbox" /></th>
+      <td><a href="#">{{ role.name }}</a></td>
+       <td>{{ role.description }}</td>
+      <td>
+        <a href="{{url_for('dashboard.delete_role',id=role.id)}}" onclick="confirm('Are you sure?')">Delete</a> |
+        <a href="{{url_for('dashboard.update_role',id=role.id)}}">Edit</a>
+      </td>
+    </tr>
+    {%endfor%}
+  </tbody>
+</table>
+{%endif%}
+{%endblock content%}

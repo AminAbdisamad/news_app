@@ -5,6 +5,17 @@
   {% include 'login_side.html' %}
   <div class="column">
     <div class="login-side-right">
+    {%with messages = get_flashed_messages(with_categories=true) %}
+      {%if messages%}
+        {%for category, message in messages%}
+            <article class="message {{category}}" id="notification">
+                <div class="message-body">
+                {{message}}
+                </div>
+            </article>
+        {%endfor%}
+      {%endif%}
+  {%endwith%}
       <h1>Register</h1>
       <form method="POST">
         {{ form.csrf_token }}
@@ -12,6 +23,7 @@
         {{form_input(input=form.email,label=form.email.label,type="input",errors=form.email.errors)}}
         {{form_input(input=form.username,label=form.username.label,type="input",errors=form.username.errors)}}
         {{form_input(input=form.password,label=form.password.label,type="input",errors=form.password.errors)}}
+        {{form_input(input=form.confirm_password,label=form.confirm_password.label,type="input",errors=form.confirm_password.errors)}}
         {{form.submit(class="button is-primary")}}
       </form>
     </div>

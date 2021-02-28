@@ -1,5 +1,7 @@
-{% extends 'layout/base.html'%} {%block content%} {% from "macro.html" import
-section_heading %}
+{% extends 'layout/base.html'%}
+{% from "macro.html" import section_heading with context %}
+
+{%block content%} 
 {{section_heading(title="Categories",link="dashboard.create_category",btn_text="Add
 Category")}}
 <!-- If empty -->
