@@ -62,12 +62,10 @@
 
       <div class="navbar-end">
         <div class="navbar-item">
-          <div class="buttons">
-            <a class="button is-primary" href="#">
-              <strong>Sign up</strong>
-            </a>
-            <a class="button is-light" href="#"> Log in </a>
-          </div>
+        {%if current_user.is_authenticated%}
+          <p>Welcome,{{current_user.username}}</p>
+           <a class="navbar-item" href="{{url_for('auth.logout')}}"> Logout </a>
+          {%endif%}
         </div>
       </div>
     </div>

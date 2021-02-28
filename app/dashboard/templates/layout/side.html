@@ -7,6 +7,7 @@
       <a href="{{url_for('dashboard.index')}}" class="is-active">Dashboard</a>
     </li>
   </ul>
+  <p class="menu-label">Post Activities</p>
   <ul class="menu-list">
     <li>
       <a href="{{url_for('dashboard.get_posts')}}">Posts</a>
@@ -19,9 +20,14 @@
       <a href="{{url_for('dashboard.create_category')}}">Create Category</a>
     </li>
   </ul>
+  <p class="menu-label">Administration Activities</p>
   <ul class="menu-list">
     <li><a href="{{url_for('dashboard.get_users')}}">Users</a></li>
     <li><a href="{{url_for('dashboard.create_user')}}">Create User</a></li>
     <li><a>Balance</a></li>
+  </ul>
+  <ul class="menu-list">
+    <li><a href="{{url_for('dashboard.get_roles')}}">Roles</a></li>
+    <li><a href="{{url_for('dashboard.create_roles')}}">Create Role</a></li>
   </ul>
 </aside>

@@ -1,30 +1,13 @@
 from dataclasses import dataclass
 from datetime import datetime
-from app import db
+from flask_login import UserMixin
+from app import db, login_manger
 
 
-# @dataclass
-# class User(db.Model):
-#     __tablename__ = 'user'
-#     user_id: int = db.Column(db.Integer, nullable=False, primary_key=True)
-#     username: str = db.Column(db.String(100))
-#     email: str = db.Column(db.String(120), nullable=False, unique=True)
-#     # role_id = db.Column(db.Integer, db.ForeignKey('role.role_id'),
-#     #                     nullable=False)
-#     roles = db.relationship('Role',
-#                             backref=db.backref('user', lazy='dynamic'))
-
-#     created_at: datetime = db.Column(db.DateTime, default=datetime.utcnow)
-#     modified_at: datetime = db.Column(db.DateTime, default=datetime.utcnow)
-
-#     # def save(self) -> None:
-#     #     db.session.add(self)
-#     #     db.session.commit()
-
-#     # def delete(self) -> None:
-#     #     db.session.delete(self)
-#     #     db.session.commit()
-
+# Load_user
+@login_manger.user_loader
+def load_user(user_id):
+    return User.query.get_or_404(int(user_id))
 
 # @dataclass
 # class Role(db.Model):
@@ -66,14 +49,14 @@ class Role(db.Model):
         db.session.commit()
 
 
-class User(db.Model):
+class User(db.Model, UserMixin):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(255), unique=True)
     username = db.Column(db.String(80), unique=True)
     name = db.Column(db.String(120), nullable=True)
     password = db.Column(db.String(255))
-    active = db.Column(db.Boolean(), default=False)
+    role = db.Column(db.String(80), default="User")
     confirmed_at = db.Column(db.DateTime())
 
     def save(self) -> None:

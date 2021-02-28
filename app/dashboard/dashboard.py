@@ -5,6 +5,7 @@ from app.dashboard.models.category import Category
 from app.auth.models.User import User
 from app.dashboard.forms.post_form import PostForm
 from app.dashboard.forms.category_form import CategoryForm
+from flask_login import login_required
 
 # from app.auth.models.User import User, Role
 dashboard_bp = Blueprint('dashboard', __name__,
@@ -12,6 +13,7 @@ dashboard_bp = Blueprint('dashboard', __name__,
 
 
 @dashboard_bp.route('/')
+@login_required
 def index():
     return render_template("dashboard.html")
 

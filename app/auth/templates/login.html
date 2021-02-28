@@ -4,7 +4,19 @@
   <!-- Include left sidebar -->
   {% include 'login_side.html' %}
   <div class="column">
+  
     <div class="login-side-right">
+       {%with messages = get_flashed_messages(with_categories=true) %}
+        {%if messages%}
+          {%for category, message in messages%}
+              <article class="message {{category}}" id="notification">
+                  <div class="message-body">
+                  {{message}}
+                  </div>
+              </article>
+          {%endfor%}
+        {%endif%}
+    {%endwith%}
       <h1>Login</h1>
         <form method="POST">
         {{ form.csrf_token }}

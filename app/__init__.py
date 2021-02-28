@@ -1,6 +1,8 @@
 from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
+from flask_bcrypt import Bcrypt
+from flask_login import LoginManager
 from app import config
 
 # from werkzeug import generate_password_hash,check_password_hash
@@ -33,9 +35,11 @@ else:
 
 # To set envr
 # export FLASK_ENV=production
-
+# ? Extensions
+bcrypt = Bcrypt(app)
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
+login_manger = LoginManager(app)
 
 
 #  Errors

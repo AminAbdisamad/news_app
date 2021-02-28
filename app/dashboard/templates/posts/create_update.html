@@ -1,14 +1,13 @@
 {% extends 'layout/base.html'%} 
-{% block content%} 
+{% from "macro.html" import form_input with context%} 
 {% from "macro.html" import section_heading with context%} 
+{% block content%} 
 {{section_heading(title=title,link="dashboard.get_posts",btn_text="Back")}}
 <!-- FORM -->
 <form method="POST" class="box">
   <!-- Prevent CRSF Attacks -->
   {{ form.csrf_token }}
-
   <!-- TITLE -->
-{% from "macro.html" import form_input with context%} 
   {{form_input(input=form.title,label=form.title.label,type="input",errors=form.title.errors)}}
   <!-- DESCRIPTION -->
   {{form_input(input=form.description,label=form.description.label,type="textarea",errors=form.description.errors)}}
@@ -23,7 +22,7 @@
   {{form_input(input=form.source,label=form.source.label,type="input",errors=form.source.errors)}}
   <!-- Publish -->
   {{form.publish.label}}
-   {{form.publish()}} 
+  {{form.publish()}} 
   {{form.submit(class="button is-primary")}}
 </form>
 {% endblock content %}
